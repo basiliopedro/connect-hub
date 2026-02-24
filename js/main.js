@@ -1,8 +1,11 @@
 const container = document.getElementById("professionals");
 
-db.collection("professionals").where("approved", "==", true)
+db.collection("professionals")
+.where("approved", "==", true)
 .onSnapshot(snapshot => {
+
   container.innerHTML = "";
+
   snapshot.forEach(doc => {
     const data = doc.data();
 
@@ -15,4 +18,5 @@ db.collection("professionals").where("approved", "==", true)
       </div>
     `;
   });
+
 });
