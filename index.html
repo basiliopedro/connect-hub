@@ -11,27 +11,23 @@
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
-
 <script src="firebase-config.js"></script>
 <script defer src="js/main.js"></script>
 </head>
 
 <body>
 
-<header class="header">
-  <h1>CONNECT HUB</h1>
-  <input type="text" id="search" placeholder="Buscar profissionais...">
-  <a href="login.html" class="btn">Login</a>
-</header>
+<nav class="navbar">
+  <div class="logo">CONNECT HUB</div>
+  <a href="login.html" class="login-btn">Entrar</a>
+</nav>
+
+<section class="hero">
+  <h2>Encontre profissionais confiáveis no Cuito</h2>
+  <input type="text" id="search" placeholder="Buscar eletricista, mecânico...">
+</section>
 
 <section id="professionals" class="cards"></section>
-
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js');
-}
-</script>
 
 </body>
 </html>
