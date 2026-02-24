@@ -14,7 +14,7 @@ db.collection("professionals")
         <h3>${data.name}</h3>
         <p>${data.profession}</p>
         <p>${data.location}</p>
-        <p class="star">⭐ ${data.rating || 0}</p>
+        <div class="rating">⭐ ${data.rating || 0}</div>
       </div>
     `;
   });
