@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Connect Hub</title>
+
 <link rel="stylesheet" href="css/style.css">
 <link rel="manifest" href="manifest.json">
 
@@ -17,7 +18,8 @@
 </head>
 
 <body>
-<header>
+
+<header class="header">
   <h1>CONNECT HUB</h1>
   <input type="text" id="search" placeholder="Buscar profissionais...">
   <a href="login.html" class="btn">Login</a>
@@ -27,7 +29,7 @@
 
 <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
+  navigator.serviceWorker.register('./service-worker.js');
 }
 </script>
 
