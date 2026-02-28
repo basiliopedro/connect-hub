@@ -1,9 +1,0 @@
-{
-  "name": "Connect Hub",
-  "short_name": "ConnectHub",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#0f0f0f",
-  "theme_color": "#00a86b",
-  "icons": []
-}
