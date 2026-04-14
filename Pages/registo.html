@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect Hub — Criar Conta</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #F4F6F7;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    .topo {
+      background: #0D1B2A;
+      padding: 20px 24px 16px;
+    }
+
+    .logo { color: #fff; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
+    .logo span { color: #2E86C1; }
+
+    .progresso { padding: 20px 24px 8px; }
+    .progresso-label { font-size: 12px; color: #839192; margin-bottom: 8px; }
+    .barra { height: 4px; background: #ddd; border-radius: 4px; overflow: hidden; }
+    .barra-fill { height: 100%; background: #2E86C1; border-radius: 4px; transition: width 0.3s; }
+
+    .etapa { display: none; padding: 0 24px; }
+    .etapa.activa { display: block; }
+
+    .etapa-titulo { font-size: 22px; font-weight: bold; color: #0D1B2A; margin: 24px 0 6px; }
+    .etapa-sub { font-size: 13px; color: #839192; margin-bottom: 24px; line-height: 1.5; }
+
+    .campo { margin-bottom: 16px; }
+
+    .campo label {
+      display: block;
+      font-size: 13px;
+      color: #1B4F72;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .campo input,
+    .campo select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #ddd;
+      border-radius: 12px;
+      font-size: 15px;
+      background: #fff;
+      color: #0D1B2A;
+      outline: none;
+    }
+
+    .campo input:focus,
+    .campo select:focus { border-color: #2E86C1; }
+
+    .password-wrap { position: relative; }
+    .password-wrap input { padding-right: 48px; }
+    .password-wrap i {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #839192;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .tipo-conta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .tipo-card {
+      border: 2px solid #ddd;
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .tipo-card.seleccionado { border-color: #2E86C1; background: #EAF4FB; }
+    .tipo-card i { font-size: 24px; color: #2E86C1; margin-bottom: 8px; display: block; }
+    .tipo-card .tipo-nome { font-size: 14px; font-weight: bold; color: #0D1B2A; }
+    .tipo-card .tipo-desc { font-size: 11px; color: #839192; margin-top: 4px; }
+
+    /* KYC */
+    .doc-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1.5px solid #ddd;
+    }
+
+    .doc-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0D1B2A;
+      margin-bottom: 12px;
+    }
+
+    .doc-label i { color: #2E86C1; font-size: 16px; }
+
+    .doc-opcoes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .doc-opcao {
+      border: 1.5px solid #ddd;
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      background: #F4F6F7;
+    }
+
+    .doc-opcao.activo { border-color: #2E86C1; background: #EAF4FB; }
+    .doc-opcao.unico { grid-column: 1 / -1; }
+    .doc-opcao i { font-size: 22px; color: #2E86C1; margin-bottom: 6px; display: block; }
+    .doc-opcao p { font-size: 12px; font-weight: 600; color: #0D1B2A; margin-bottom: 2px; }
+    .doc-opcao span { font-size: 10px; color: #839192; }
+
+    .doc-confirmado {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      background: #E8F8F0;
+      border: 1px solid #1E8449;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+
+    .doc-confirmado.visivel { display: flex; }
+    .doc-confirmado i { color: #1E8449; font-size: 18px; }
+    .doc-confirmado span { font-size: 13px; color: #1E8449; font-weight: 600; }
+
+    .upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .upload-area i { font-size: 32px; color: #2E86C1; margin-bottom: 8px; display: block; }
+    .upload-area p { font-size: 13px; color: #839192; margin-bottom: 4px; }
+    .upload-area span { font-size: 12px; color: #2E86C1; font-weight: 600; }
+
+    .aviso-kyc {
+      background: #EAF4FB;
+      border: 1px solid #AED6F1;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .aviso-kyc i { color: #2E86C1; font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .aviso-kyc p { font-size: 12px; color: #1B4F72; line-height: 1.5; }
+
+    /* AVISO CONTRATANTE */
+    .aviso-contratante {
+      background: #E8F8F0;
+      border: 1px solid #1E8449;
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .aviso-contratante i {
+      font-size: 36px;
+      color: #1E8449;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .aviso-contratante h3 {
+      font-size: 16px;
+      font-weight: bold;
+      color: #0D1B2A;
+      margin-bottom: 8px;
+    }
+
+    .aviso-contratante p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .btn-avancar {
+      width: 100%;
+      padding: 16px;
+      background: #2E86C1;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .btn-voltar {
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      color: #2E86C1;
+      border: 2px solid #2E86C1;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .link-login { text-align: center; margin-top: 20px; font-size: 13px; color: #839192; }
+    .link-login a { color: #2E86C1; text-decoration: none; font-weight: 600; }
+
+    .sucesso { text-align: center; padding: 40px 0; }
+
+    .icone-sucesso {
+      width: 80px;
+      height: 80px;
+      background: #E8F8F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .icone-sucesso i { font-size: 36px; color: #1E8449; }
+    .sucesso-titulo { font-size: 22px; font-weight: bold; color: #0D1B2A; margin-bottom: 10px; }
+    .sucesso-sub { font-size: 14px; color: #839192; line-height: 1.6; margin-bottom: 32px; }
+  </style>
+</head>
+<body>
+
+  <div class="topo">
+    <div class="logo">CONNECT <span>HUB</span></div>
+  </div>
+
+  <div class="progresso">
+    <div class="progresso-label" id="progresso-label">Etapa 1 de 4</div>
+    <div class="barra">
+      <div class="barra-fill" id="barra-fill" style="width:25%"></div>
+    </div>
+  </div>
+
+  <!-- ETAPA 1 — TIPO DE CONTA -->
+  <div class="etapa activa" id="etapa-1">
+    <div class="etapa-titulo">Bem-vindo!</div>
+    <div class="etapa-sub">Como vais usar a Connect Hub?</div>
+    <div class="tipo-conta">
+      <div class="tipo-card" id="card-contratante" onclick="seleccionarTipo('contratante')">
+        <i class="fa-solid fa-briefcase"></i>
+        <div class="tipo-nome">Contratante</div>
+        <div class="tipo-desc">Quero contratar serviços</div>
+      </div>
+      <div class="tipo-card" id="card-freelancer" onclick="seleccionarTipo('freelancer')">
+        <i class="fa-solid fa-tools"></i>
+        <div class="tipo-nome">Freelancer</div>
+        <div class="tipo-desc">Quero oferecer serviços</div>
+      </div>
+    </div>
+    <button class="btn-avancar" onclick="avancar(2)">Continuar</button>
+    <div class="link-login">Já tens conta? <a href="login.html">Entrar</a></div>
+  </div>
+
+  <!-- ETAPA 2 — DADOS BÁSICOS -->
+  <div class="etapa" id="etapa-2">
+    <div class="etapa-titulo">Os teus dados</div>
+    <div class="etapa-sub">Preenche com informação real.</div>
+    <div class="campo">
+      <label>Nome completo</label>
+      <input type="text" placeholder="Nome e apelido">
+    </div>
+    <div class="campo">
+      <label>Email</label>
+      <input type="email" placeholder="O teu email">
+    </div>
+    <div class="campo">
+      <label>Número de telefone</label>
+      <input type="tel" placeholder="9XX XXX XXX">
+    </div>
+    <div class="campo">
+      <label>Password</label>
+      <div class="password-wrap">
+        <input type="password" id="password" placeholder="Mínimo 8 caracteres">
+        <i class="fa-solid fa-eye" id="olho" onclick="togglePassword()"></i>
+      </div>
+    </div>
+    <button class="btn-avancar" onclick="avancar(3)">Continuar</button>
+    <button class="btn-voltar" onclick="avancar(1)">Voltar</button>
+  </div>
+
+  <!-- ETAPA 3 — VERIFICAÇÃO SMS -->
+  <div class="etapa" id="etapa-3">
+    <div class="etapa-titulo">Verificação</div>
+    <div class="etapa-sub">Enviámos um código de 6 dígitos para o teu número.</div>
+    <div class="campo">
+      <label>Código SMS</label>
+      <input type="number" placeholder="······" style="letter-spacing:8px; text-align:center; font-size:22px;">
+    </div>
+    <button class="btn-avancar" onclick="avancar(4)">Verificar</button>
+    <button class="btn-voltar" onclick="avancar(2)">Voltar</button>
+  </div>
+
+  <!-- ETAPA 4 — KYC (diferente por tipo) -->
+  <div class="etapa" id="etapa-4">
+
+    <!-- CONTRATANTE — sem KYC pesado -->
+    <div id="kyc-contratante" style="display:none;">
+      <div class="etapa-titulo">Quase pronto!</div>
+      <div class="etapa-sub">Conta-nos um pouco sobre ti.</div>
+
+      <div class="aviso-contratante">
+        <i class="fa-solid fa-circle-check"></i>
+        <h3>O teu número foi verificado</h3>
+        <p>Como contratante só precisas do número de telefone verificado para começar a publicar projectos até 50.000 Kz.</p>
+      </div>
+
+      <div class="campo">
+        <label>Província</label>
+        <select>
+          <option value="">Selecciona a tua província</option>
+          <option>Bié</option>
+          <option>Benguela</option>
+          <option>Huambo</option>
+          <option>Luanda</option>
+          <option>Malanje</option>
+          <option>Huíla</option>
+          <option>Moxico</option>
+          <option>Lunda Norte</option>
+          <option>Lunda Sul</option>
+          <option>Cabinda</option>
+          <option>Zaire</option>
+          <option>Uíge</option>
+          <option>Kwanza Norte</option>
+          <option>Kwanza Sul</option>
+          <option>Namibe</option>
+          <option>Cuando Cubango</option>
+          <option>Cunene</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Breve descrição (opcional)</label>
+        <input type="text" placeholder="Ex: Empresário na área de construção">
+      </div>
+      <button class="btn-avancar" onclick="avancar(5)">Criar Conta</button>
+      <button class="btn-voltar" onclick="avancar(3)">Voltar</button>
+    </div>
+
+    <!-- FREELANCER — KYC completo -->
+    <div id="kyc-freelancer" style="display:none;">
+      <div class="etapa-titulo">Verificação de Identidade</div>
+      <div class="etapa-sub">Precisamos verificar quem és para proteger todos na plataforma.</div>
+
+      <div class="aviso-kyc">
+        <i class="fa-solid fa-shield-halved"></i>
+        <p>Os teus documentos são guardados de forma segura e usados apenas para verificação. Nunca partilhados com terceiros.</p>
+      </div>
+
+      <!-- BI FRENTE -->
+      <div class="doc-item">
+        <div class="doc-label">
+          <i class="fa-solid fa-id-card"></i>
+          Bilhete de Identidade — Frente
+        </div>
+        <div class="doc-opcoes">
+          <div class="doc-opcao" id="op-bi-frente-camera" onclick="usarCamera('bi-frente')">
+            <i class="fa-solid fa-camera"></i>
+            <p>Tirar foto</p>
+            <span>Usar câmera agora</span>
+          </div>
+          <div class="doc-opcao" id="op-bi-frente-upload" onclick="simularUpload('bi-frente')">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <p>Fazer upload</p>
+            <span>Escolher ficheiro</span>
+          </div>
+        </div>
+        <div class="doc-confirmado" id="confirm-bi-frente">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>BI frente enviado ✓</span>
+        </div>
+      </div>
+
+      <!-- BI VERSO -->
+      <div class="doc-item">
+        <div class="doc-label">
+          <i class="fa-solid fa-id-card"></i>
+          Bilhete de Identidade — Verso
+        </div>
+        <div class="doc-opcoes">
+          <div class="doc-opcao" id="op-bi-verso-camera" onclick="usarCamera('bi-verso')">
+            <i class="fa-solid fa-camera"></i>
+            <p>Tirar foto</p>
+            <span>Usar câmera agora</span>
+          </div>
+          <div class="doc-opcao" id="op-bi-verso-upload" onclick="simularUpload('bi-verso')">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <p>Fazer upload</p>
+            <span>Escolher ficheiro</span>
+          </div>
+        </div>
+        <div class="doc-confirmado" id="confirm-bi-verso">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>BI verso enviado ✓</span>
+        </div>
+      </div>
+
+      <!-- SELFIE -->
+      <div class="doc-item">
+        <div class="doc-label">
+          <i class="fa-solid fa-user-check"></i>
+          Selfie — Foto do teu rosto
+        </div>
+        <div class="doc-opcoes">
+          <div class="doc-opcao unico" id="op-selfie-camera" onclick="usarCamera('selfie')">
+            <i class="fa-solid fa-camera"></i>
+            <p>Tirar selfie agora</p>
+            <span>Usa a câmera frontal — rosto bem iluminado</span>
+          </div>
+        </div>
+        <div class="doc-confirmado" id="confirm-selfie">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Selfie enviada ✓</span>
+        </div>
+      </div>
+
+      <!-- PORTFOLIO -->
+      <div class="doc-item">
+        <div class="doc-label">
+          <i class="fa-solid fa-briefcase"></i>
+          Portfólio ou Certificado
+        </div>
+        <div class="upload-area" onclick="simularUpload('portfolio')">
+          <i class="fa-solid fa-file-arrow-up"></i>
+          <p>Toca para enviar o teu portfólio ou certificado</p>
+          <span>JPG, PNG ou PDF — máx. 10MB</span>
+        </div>
+        <div class="doc-confirmado" id="confirm-portfolio">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Portfólio enviado ✓</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Província</label>
+        <select>
+          <option value="">Selecciona a tua província</option>
+          <option>Bié</option>
+          <option>Benguela</option>
+          <option>Huambo</option>
+          <option>Luanda</option>
+          <option>Malanje</option>
+          <option>Huíla</option>
+          <option>Moxico</option>
+          <option>Lunda Norte</option>
+          <option>Lunda Sul</option>
+          <option>Cabinda</option>
+          <option>Zaire</option>
+          <option>Uíge</option>
+          <option>Kwanza Norte</option>
+          <option>Kwanza Sul</option>
+          <option>Namibe</option>
+          <option>Cuando Cubango</option>
+          <option>Cunene</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Categoria de serviço</label>
+        <select>
+          <option value="">Selecciona a tua área</option>
+          <option>Mão de Obra</option>
+          <option>Arte & Design</option>
+          <option>Tecnologia</option>
+          <option>Música</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Breve descrição</label>
+        <input type="text" placeholder="Ex: Eletricista com 5 anos de experiência">
+      </div>
+
+      <button class="btn-avancar" onclick="avancar(5)">Criar Conta</button>
+      <button class="btn-voltar" onclick="avancar(3)">Voltar</button>
+    </div>
+
+  </div>
+
+  <!-- ETAPA 5 — SUCESSO -->
+  <div class="etapa" id="etapa-5">
+    <div class="sucesso">
+      <div class="icone-sucesso">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <div class="sucesso-titulo" id="sucesso-titulo">Conta criada!</div>
+      <div class="sucesso-sub" id="sucesso-sub">O teu perfil foi submetido para verificação. Receberás uma notificação quando for aprovado.</div>
+      <button class="btn-avancar" onclick="irParaInicio()">Entrar na plataforma</button>
+    </div>
+  </div>
+
+  <script>
+    let tipoSeleccionado = '';
+
+    function seleccionarTipo(tipo) {
+      tipoSeleccionado = tipo;
+      document.getElementById('card-contratante').classList.remove('seleccionado');
+      document.getElementById('card-freelancer').classList.remove('seleccionado');
+      document.getElementById('card-' + tipo).classList.add('seleccionado');
+    }
+
+    function avancar(etapa) {
+      // Na etapa 4 mostra o KYC correcto conforme o tipo
+      if (etapa === 4) {
+        document.getElementById('kyc-contratante').style.display =
+          tipoSeleccionado === 'contratante' ? 'block' : 'none';
+        document.getElementById('kyc-freelancer').style.display =
+          tipoSeleccionado === 'freelancer' ? 'block' : 'none';
+
+        // Mensagem de sucesso adaptada
+        if (tipoSeleccionado === 'contratante') {
+          document.getElementById('sucesso-titulo').textContent = 'Conta criada!';
+          document.getElementById('sucesso-sub').textContent =
+            'A tua conta de contratante está activa. Já podes publicar projectos.';
+        } else {
+          document.getElementById('sucesso-titulo').textContent = 'Conta submetida!';
+          document.getElementById('sucesso-sub').textContent =
+            'Os teus documentos foram enviados para verificação. Receberás uma notificação quando o teu perfil for aprovado.';
+        }
+      }
+
+      // Barra de progresso adaptada
+      const totalEtapas = tipoSeleccionado === 'freelancer' ? 4 : 4;
+      const labels = ['', 'Etapa 1 de 4', 'Etapa 2 de 4', 'Etapa 3 de 4', 'Etapa 4 de 4', ''];
+      const larguras = ['', '25%', '50%', '75%', '100%', '100%'];
+
+      document.querySelectorAll('.etapa').forEach(e => e.classList.remove('activa'));
+      document.getElementById('etapa-' + etapa).classList.add('activa');
+      document.getElementById('progresso-label').textContent = labels[etapa] || '';
+      document.getElementById('barra-fill').style.width = larguras[etapa] || '100%';
+      window.scrollTo(0, 0);
+    }
+
+    function irParaInicio() {
+      window.location.href = 'inicio.html';
+    }
+
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const olho = document.getElementById('olho');
+      if (input.type === 'password') {
+        input.type = 'text';
+        olho.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        olho.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+
+    function usarCamera(tipo) {
+      const el = document.getElementById('op-' + tipo + '-camera');
+      if (el) el.classList.add('activo');
+      setTimeout(() => confirmar(tipo), 600);
+    }
+
+    function simularUpload(tipo) {
+      const el = document.getElementById('op-' + tipo + '-upload');
+      if (el) el.classList.add('activo');
+      setTimeout(() => confirmar(tipo), 800);
+    }
+
+    function confirmar(tipo) {
+      const el = document.getElementById('confirm-' + tipo);
+      if (el) el.classList.add('visivel');
+    }
+  </script>
+
+</body>
+  </html>
