@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect Hub — Recuperar Password</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #F4F6F7;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 40px;
+    }
+
+    .topo {
+      background: #0D1B2A;
+      padding: 20px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topo .voltar {
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .topo .logo {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .topo .logo span {
+      color: #2E86C1;
+    }
+
+    .corpo {
+      padding: 32px 24px;
+    }
+
+    .icone-topo {
+      width: 64px;
+      height: 64px;
+      background: #EAF4FB;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .icone-topo i {
+      font-size: 28px;
+      color: #2E86C1;
+    }
+
+    .titulo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #0D1B2A;
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      font-size: 13px;
+      color: #839192;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .etapa {
+      display: none;
+    }
+
+    .etapa.activa {
+      display: block;
+    }
+
+    .campo {
+      margin-bottom: 16px;
+    }
+
+    .campo label {
+      display: block;
+      font-size: 13px;
+      color: #1B4F72;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .campo input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #ddd;
+      border-radius: 12px;
+      font-size: 15px;
+      background: #fff;
+      color: #0D1B2A;
+      outline: none;
+    }
+
+    .campo input:focus {
+      border-color: #2E86C1;
+    }
+
+    .codigo-input {
+      letter-spacing: 8px;
+      text-align: center;
+      font-size: 26px;
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 48px;
+    }
+
+    .password-wrap i {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #839192;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .btn-principal {
+      width: 100%;
+      padding: 16px;
+      background: #2E86C1;
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .link-voltar {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #839192;
+    }
+
+    .link-voltar a {
+      color: #2E86C1;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .sucesso {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .sucesso .icone-sucesso {
+      width: 80px;
+      height: 80px;
+      background: #E8F8F0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .sucesso .icone-sucesso i {
+      font-size: 36px;
+      color: #1E8449;
+    }
+
+    .sucesso .titulo {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topo">
+    <a href="login.html" class="voltar">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <div class="logo">CONNECT <span>HUB</span></div>
+  </div>
+
+  <div class="corpo">
+
+    <!-- ETAPA 1 — EMAIL/TELEFONE -->
+    <div class="etapa activa" id="etapa-1">
+      <div class="icone-topo">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <div class="titulo">Recuperar password</div>
+      <div class="sub">Introduz o teu email ou número de telefone. Vamos enviar um código para recuperares o acesso.</div>
+
+      <div class="campo">
+        <label>Email ou telefone</label>
+        <input type="text" placeholder="O teu email ou número">
+      </div>
+
+      <button class="btn-principal" onclick="avancar(2)">Enviar código</button>
+
+      <div class="link-voltar">
+        Lembras-te da password? <a href="login.html">Entrar</a>
+      </div>
+    </div>
+
+    <!-- ETAPA 2 — CÓDIGO -->
+    <div class="etapa" id="etapa-2">
+      <div class="icone-topo">
+        <i class="fa-solid fa-message"></i>
+      </div>
+      <div class="titulo">Verifica o código</div>
+      <div class="sub">Enviámos um código de 6 dígitos para o teu contacto. Introduz abaixo.</div>
+
+      <div class="campo">
+        <label>Código de verificação</label>
+        <input type="number" class="codigo-input" placeholder="······">
+      </div>
+
+      <button class="btn-principal" onclick="avancar(3)">Verificar</button>
+
+      <div class="link-voltar">
+        Não recebeste? <a href="#" onclick="avancar(1)">Tentar outra vez</a>
+      </div>
+    </div>
+
+    <!-- ETAPA 3 — NOVA PASSWORD -->
+    <div class="etapa" id="etapa-3">
+      <div class="icone-topo">
+        <i class="fa-solid fa-key"></i>
+      </div>
+      <div class="titulo">Nova password</div>
+      <div class="sub">Escolhe uma password nova com pelo menos 8 caracteres.</div>
+
+      <div class="campo">
+        <label>Nova password</label>
+        <div class="password-wrap">
+          <input type="password" id="pass1" placeholder="Mínimo 8 caracteres">
+          <i class="fa-solid fa-eye" id="olho1" onclick="togglePass('pass1','olho1')"></i>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Confirmar password</label>
+        <div class="password-wrap">
+          <input type="password" id="pass2" placeholder="Repete a password">
+          <i class="fa-solid fa-eye" id="olho2" onclick="togglePass('pass2','olho2')"></i>
+        </div>
+      </div>
+
+      <button class="btn-principal" onclick="avancar(4)">Guardar password</button>
+    </div>
+
+    <!-- ETAPA 4 — SUCESSO -->
+    <div class="etapa" id="etapa-4">
+      <div class="sucesso">
+        <div class="icone-sucesso">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="titulo">Password alterada!</div>
+        <div class="sub">A tua password foi actualizada com sucesso. Podes entrar agora.</div>
+        <button class="btn-principal" onclick="window.location.href='login.html'">Ir para o Login</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function avancar(etapa) {
+      document.querySelectorAll('.etapa').forEach(e => e.classList.remove('activa'));
+      document.getElementById('etapa-' + etapa).classList.add('activa');
+      window.scrollTo(0, 0);
+    }
+
+    function togglePass(inputId, olhoId) {
+      const input = document.getElementById(inputId);
+      const olho = document.getElementById(olhoId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        olho.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        olho.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+  </script>
+
+</body>
+  </html>
