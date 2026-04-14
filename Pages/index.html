@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(160deg, #0D1B2A 0%, #1B4F72 50%, #0D1B2A 100%);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .logo-svg {
+      margin-bottom: 24px;
+    }
+
+    .logo-texto {
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .logo-texto span { color: #2E86C1; }
+
+    .tagline {
+      font-size: 13px;
+      color: #AED6F1;
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 48px;
+      line-height: 1.6;
+      padding: 0 10px;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 320px;
+      padding: 16px;
+      border-radius: 14px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary {
+      background: #2E86C1;
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #2E86C1;
+      border: 2px solid #2E86C1;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 24px;
+      font-size: 11px;
+      color: #3d5a73;
+    }
+  </style>
+</head>
+<body>
+
+  <svg class="logo-svg" width="90" height="90" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="ng" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#2E86C1"/>
+        <stop offset="100%" style="stop-color:#1B4F72"/>
+      </linearGradient>
+      <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#2E86C1"/>
+        <stop offset="100%" style="stop-color:#AED6F1"/>
+      </linearGradient>
+    </defs>
+    <circle cx="200" cy="200" r="18" fill="url(#ng)"/>
+    <circle cx="200" cy="110" r="10" fill="#AED6F1"/>
+    <circle cx="278" cy="148" r="10" fill="#AED6F1"/>
+    <circle cx="278" cy="252" r="10" fill="#AED6F1"/>
+    <circle cx="200" cy="290" r="10" fill="#2E86C1"/>
+    <circle cx="122" cy="252" r="10" fill="#2E86C1"/>
+    <circle cx="122" cy="148" r="10" fill="#2E86C1"/>
+    <line x1="200" y1="200" x2="200" y2="120" stroke="url(#ag)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    <line x1="200" y1="200" x2="269" y2="153" stroke="url(#ag)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    <line x1="200" y1="200" x2="269" y2="247" stroke="url(#ag)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    <line x1="200" y1="200" x2="200" y2="280" stroke="url(#ag)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    <line x1="200" y1="200" x2="131" y2="247" stroke="url(#ag)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    <line x1="200" y1="200" x2="131" y2="153" stroke="url(#ag)" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+    <circle cx="200" cy="200" r="105" fill="none" stroke="#AED6F1" stroke-width="1.5" stroke-dasharray="12 6" opacity="0.3"/>
+    <path d="M148 236 Q128 236 128 218 L128 182 Q128 164 148 164 L162 164" fill="none" stroke="#AED6F1" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="174" y1="164" x2="174" y2="236" stroke="#AED6F1" stroke-width="14" stroke-linecap="round"/>
+    <line x1="174" y1="200" x2="208" y2="200" stroke="#AED6F1" stroke-width="14" stroke-linecap="round"/>
+    <line x1="208" y1="164" x2="208" y2="236" stroke="#AED6F1" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="162" cy="155" r="7" fill="#2E86C1"/>
+  </svg>
+
+  <div class="logo-texto">CONNECT <span>HUB</span></div>
+
+  <p class="tagline">"A plataforma que vê o angolano que os outros não vêem"</p>
+
+  <button class="btn btn-primary" onclick="window.location.href='login.html'">Entrar</button>
+  <button class="btn btn-secondary" onclick="window.location.href='registro.html'">Criar Conta</button>
+
+  <p class="footer">MAGOP MGP © 2026</p>
+
+</body>
+  </html>
