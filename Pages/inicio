@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connect Hub — Início</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #F4F6F7;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .topo {
+      background: #0D1B2A;
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topo-linha1 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .logo { color: #fff; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
+    .logo span { color: #2E86C1; }
+
+    .topo-icones { display: flex; gap: 20px; align-items: center; }
+
+    .badge-notif {
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .badge-notif i { color: #fff; font-size: 20px; }
+
+    .badge-notif .numero {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: #E74C3C;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0D1B2A;
+    }
+
+    .topo-icones a {
+      color: #fff;
+      font-size: 20px;
+      text-decoration: none;
+    }
+
+    .barra-pesquisa {
+      display: flex;
+      align-items: center;
+      background: #1B4F72;
+      border-radius: 10px;
+      padding: 10px 14px;
+      gap: 10px;
+    }
+
+    .barra-pesquisa i { color: #AED6F1; font-size: 16px; }
+
+    .barra-pesquisa input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .barra-pesquisa input::placeholder { color: #AED6F1; }
+
+    .categorias {
+      display: flex;
+      gap: 10px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .categorias::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      background: #fff;
+      border: 1.5px solid #ddd;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #1B4F72;
+      white-space: nowrap;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .cat-pill.activa {
+      background: #2E86C1;
+      border-color: #2E86C1;
+      color: #fff;
+    }
+
+    .seccao-titulo {
+      padding: 4px 20px 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #0D1B2A;
+    }
+
+    .projectos {
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .card-projecto {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .card-topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .categoria-tag {
+      background: #EAF4FB;
+      color: #1B4F72;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .tempo { font-size: 11px; color: #839192; }
+
+    .card-titulo {
+      font-size: 15px;
+      font-weight: bold;
+      color: #0D1B2A;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #839192;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .modalidade-tag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #839192;
+      margin-bottom: 10px;
+    }
+
+    .modalidade-tag i { color: #2E86C1; font-size: 12px; }
+
+    .card-rodape {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .valor { font-size: 16px; font-weight: bold; color: #1B4F72; }
+    .valor span { font-size: 12px; font-weight: normal; color: #839192; }
+
+    .btn-ver {
+      background: #2E86C1;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .exemplo-tag {
+      font-size: 10px;
+      color: #839192;
+      font-style: italic;
+      text-align: right;
+      margin-top: 8px;
+    }
+
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0 16px;
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+
+    .nav-item i { font-size: 22px; color: #839192; }
+    .nav-item span { font-size: 10px; color: #839192; }
+    .nav-item.activo i { color: #2E86C1; }
+    .nav-item.activo span { color: #2E86C1; }
+
+    .nav-publicar {
+      background: #2E86C1;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -16px;
+      box-shadow: 0 4px 12px rgba(46,134,193,0.4);
+      text-decoration: none;
+    }
+
+    .nav-publicar i { color: #fff; font-size: 22px; }
+  </style>
+</head>
+<body>
+
+  <div class="topo">
+    <div class="topo-linha1">
+      <div class="logo">CONNECT <span>HUB</span></div>
+      <div class="topo-icones">
+        <a href="notificacoes.html" class="badge-notif">
+          <i class="fa-solid fa-bell"></i>
+          <span class="numero">3</span>
+        </a>
+        <a href="perfil.html">
+          <i class="fa-solid fa-user-circle"></i>
+        </a>
+      </div>
+    </div>
+    <div class="barra-pesquisa">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Pesquisar projectos...">
+    </div>
+  </div>
+
+  <div class="categorias">
+    <div class="cat-pill activa">Todos</div>
+    <div class="cat-pill">Mão de Obra</div>
+    <div class="cat-pill">Arte & Design</div>
+    <div class="cat-pill">Tecnologia</div>
+    <div class="cat-pill">Música</div>
+    <div class="cat-pill">Empresas</div>
+  </div>
+
+  <div class="seccao-titulo">Projectos recentes</div>
+
+  <div class="projectos">
+
+    <div class="card-projecto">
+      <div class="card-topo">
+        <span class="categoria-tag">Mão de Obra</span>
+        <span class="tempo">Há 2 horas</span>
+      </div>
+      <div class="card-titulo">Instalação eléctrica em residência no Cuíto</div>
+      <div class="modalidade-tag">
+        <i class="fa-solid fa-location-dot"></i> Presencial — Cuíto, Bié
+      </div>
+      <div class="card-desc">Preciso de eletricista para instalar 3 tomadas e reparar quadro eléctrico.</div>
+      <div class="card-rodape">
+        <div class="valor">15.000 Kz <span>/ projecto</span></div>
+        <a href="projecto.html" class="btn-ver">Ver mais</a>
+      </div>
+      <div class="exemplo-tag">Exemplo</div>
+    </div>
+
+    <div class="card-projecto">
+      <div class="card-topo">
+        <span class="categoria-tag">Arte & Design</span>
+        <span class="tempo">Há 5 horas</span>
+      </div>
+      <div class="card-titulo">Logótipo e identidade visual para empresa</div>
+      <div class="modalidade-tag">
+        <i class="fa-solid fa-laptop"></i> Remoto
+      </div>
+      <div class="card-desc">Empresa de transportes precisa de logótipo profissional e cartão de visita.</div>
+      <div class="card-rodape">
+        <div class="valor">25.000 Kz <span>/ projecto</span></div>
+        <a href="projecto.html" class="btn-ver">Ver mais</a>
+      </div>
+      <div class="exemplo-tag">Exemplo</div>
+    </div>
+
+    <div class="card-projecto">
+      <div class="card-topo">
+        <span class="categoria-tag">Tecnologia</span>
+        <span class="tempo">Há 1 dia</span>
+      </div>
+      <div class="card-titulo">Website institucional para empresa local</div>
+      <div class="modalidade-tag">
+        <i class="fa-solid fa-laptop"></i> Remoto
+      </div>
+      <div class="card-desc">Website simples com 4 páginas para empresa de materiais de construção.</div>
+      <div class="card-rodape">
+        <div class="valor">80.000 Kz <span>/ projecto</span></div>
+        <a href="projecto.html" class="btn-ver">Ver mais</a>
+      </div>
+      <div class="exemplo-tag">Exemplo</div>
+    </div>
+
+    <div class="card-projecto">
+      <div class="card-topo">
+        <span class="categoria-tag">Música</span>
+        <span class="tempo">Há 2 dias</span>
+      </div>
+      <div class="card-titulo">Produção musical para evento corporativo</div>
+      <div class="modalidade-tag">
+        <i class="fa-solid fa-arrows-left-right"></i> Presencial ou Remoto
+      </div>
+      <div class="card-desc">Precisamos de produtor musical para evento empresarial no Cuíto.</div>
+      <div class="card-rodape">
+        <div class="valor">50.000 Kz <span>/ projecto</span></div>
+        <a href="projecto.html" class="btn-ver">Ver mais</a>
+      </div>
+      <div class="exemplo-tag">Exemplo</div>
+    </div>
+
+  </div>
+
+  <div class="navbar">
+    <a class="nav-item activo" href="inicio.html">
+      <i class="fa-solid fa-house"></i>
+      <span>Início</span>
+    </a>
+    <a class="nav-item" href="pesquisa.html">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Pesquisa</span>
+    </a>
+    <a class="nav-publicar" href="publicar.html">
+      <i class="fa-solid fa-plus"></i>
+    </a>
+    <a class="nav-item" href="mensagens.html">
+      <i class="fa-solid fa-comment"></i>
+      <span>Mensagens</span>
+    </a>
+    <a class="nav-item" href="perfil.html">
+      <i class="fa-solid fa-user"></i>
+      <span>Perfil</span>
+    </a>
+  </div>
+
+</body>
+</html>
