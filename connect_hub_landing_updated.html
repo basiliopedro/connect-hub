@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Connect Hub — Mais clientes para o teu negócio</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --azul: #0F2747;
+    --azul-med: #2F5D8A;
+    --fundo: #F5F4EF;
+    --branco: #FFFFFF;
+    --texto: #2E2E2E;
+    --texto-sec: #5a6475;
+    --borda: #e2e0d8;
+    --sombra: 0 2px 20px rgba(15,39,71,.08);
+    --sombra-hover: 0 8px 32px rgba(15,39,71,.16);
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--fundo);
+    color: var(--texto);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url('img/fundo.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: .05;
+    filter: blur(1.5px);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--azul);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    color: #fff;
+    letter-spacing: -.5px;
+    text-decoration: none;
+  }
+  .logo span { color: #7eb8f7; }
+  nav { display: flex; gap: 32px; }
+  nav a {
+    color: rgba(255,255,255,.72);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 500;
+    transition: color .2s;
+  }
+  nav a:hover { color: #fff; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .25s; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    background: var(--azul);
+    padding: 110px 24px 96px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('img/hero.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: .28;
+    z-index: 0;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15,39,71,.60) 0%, rgba(15,39,71,.80) 100%);
+    z-index: 1;
+  }
+  .hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 2; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,.1);
+    color: #7eb8f7;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 20px;
+    letter-spacing: -.5px;
+  }
+  .hero h1 em { font-style: normal; color: #7eb8f7; }
+  .hero p {
+    color: rgba(255,255,255,.65);
+    font-size: 1.05rem;
+    font-weight: 400;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-divider {
+    width: 60px;
+    height: 3px;
+    background: #7eb8f7;
+    margin: 56px auto 0;
+    border-radius: 2px;
+    opacity: .4;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--azul-med);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+    padding: 15px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    background: #3a6fa0;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(47,93,138,.4);
+  }
+  .btn-primary svg { flex-shrink: 0; }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 24px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--azul-med);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--azul);
+    margin-bottom: 16px;
+    letter-spacing: -.3px;
+  }
+  .section-sub {
+    color: var(--texto-sec);
+    font-size: .97rem;
+    max-width: 520px;
+  }
+
+  /* ── PROBLEMA ── */
+  #problema { background: var(--fundo); }
+  .problema-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 48px;
+  }
+  .problema-items { display: flex; flex-direction: column; gap: 20px; }
+  .problema-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    box-shadow: var(--sombra);
+  }
+  .problema-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: #eef3f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .problema-icon svg { color: var(--azul-med); }
+  .problema-item p {
+    font-size: .95rem;
+    font-weight: 500;
+    color: var(--texto);
+    padding-top: 8px;
+  }
+  .problema-cta h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--azul);
+    margin-bottom: 16px;
+    line-height: 1.35;
+  }
+  .problema-cta p {
+    color: var(--texto-sec);
+    font-size: .95rem;
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+  .solucao-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .solucao-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: .93rem;
+    color: var(--texto);
+    font-weight: 500;
+  }
+  .check {
+    width: 22px; height: 22px;
+    background: var(--azul-med);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .check svg { color: #fff; }
+
+  /* ── SERVIÇOS ── */
+  #servicos { background: #eceae3; }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--radius);
+    box-shadow: var(--sombra);
+    transition: transform .2s, box-shadow .2s;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 380px;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+  }
+  .card-media {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    background-size: cover;
+    background-position: center;
+    isolation: isolate;
+  }
+  .card-media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,39,71,.92) 0%, rgba(15,39,71,.74) 34%, rgba(15,39,71,.18) 65%, rgba(15,39,71,.05) 100%);
+    z-index: 0;
+  }
+  .card-body {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 24px;
+    color: #fff;
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .card p {
+    font-size: .88rem;
+    color: rgba(255,255,255,.86);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .btn-card {
+    display: block;
+    text-align: center;
+    background: var(--azul-med);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: .85rem;
+    padding: 11px 20px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .btn-card:hover { background: #3a6fa0; transform: translateY(-1px); }
+
+  /* ── PACOTES ── */
+  #pacotes { background: var(--fundo); }
+  .pacotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .pacote-card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    transition: transform .2s, box-shadow .2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .pacote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+  }
+  .pacote-card.destaque {
+    border-color: var(--azul-med);
+    border-width: 2px;
+  }
+  .pacote-header {
+    background: var(--azul);
+    padding: 24px 28px;
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    isolation: isolate;
+  }
+  .pacote-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,39,71,.92) 0%, rgba(15,39,71,.72) 45%, rgba(15,39,71,.22) 100%);
+    z-index: 0;
+  }
+  .pacote-header > * {
+    position: relative;
+    z-index: 1;
+  }
+  .pacote-card.destaque .pacote-header { background: var(--azul-med); }
+  .pacote-tag {
+    display: inline-block;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+    margin-bottom: 6px;
+  }
+  .pacote-card.destaque .pacote-tag { color: rgba(255,255,255,.85); }
+  .pacote-nome {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .pacote-preco {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 10px;
+  }
+  .pacote-preco span {
+    font-size: .8rem;
+    font-weight: 400;
+    opacity: .7;
+    display: block;
+    margin-top: 2px;
+  }
+  .pacote-body { padding: 24px 28px; flex: 1; display: flex; flex-direction: column; }
+  .pacote-desc {
+    font-size: .88rem;
+    color: var(--texto-sec);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .pacote-items { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; flex: 1; }
+  .pacote-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: .88rem;
+    color: var(--texto);
+  }
+  .pacote-items li::before {
+    content: '';
+    display: block;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #eef3f9;
+    border: 2px solid var(--azul-med);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .gestao-label {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-sec);
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+  .gestao-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: .82rem;
+    color: var(--texto-sec);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--borda);
+  }
+  .gestao-item:last-of-type { border-bottom: none; margin-bottom: 20px; }
+  .gestao-preco { font-weight: 600; color: var(--azul-med); white-space: nowrap; }
+
+  /* ── PROVA ── */
+  #prova { background: #eceae3; }
+  .prova-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .prova-card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: var(--sombra);
+  }
+  .prova-tag {
+    display: inline-block;
+    background: #eef3f9;
+    color: var(--azul-med);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .prova-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--azul);
+    margin-bottom: 8px;
+  }
+  .prova-card p {
+    font-size: .88rem;
+    color: var(--texto-sec);
+    line-height: 1.6;
+  }
+  .prova-stat {
+    display: flex;
+    gap: 6px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: #eef3f9;
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--azul-med);
+  }
+
+  .projeto-card {
+    position: relative;
+    min-height: 320px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    border: 1px solid var(--borda);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    isolation: isolate;
+  }
+  .projeto-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,39,71,.94) 0%, rgba(15,39,71,.78) 35%, rgba(15,39,71,.22) 70%, rgba(15,39,71,.04) 100%);
+    z-index: 0;
+  }
+  .projeto-body {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 26px 24px;
+  }
+  .projeto-body h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .projeto-body p {
+    color: rgba(255,255,255,.82);
+    font-size: .9rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--azul);
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding: 56px 24px 0;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .footer-brand .logo { display: block; margin-bottom: 10px; }
+  .footer-brand p {
+    font-size: .83rem;
+    color: rgba(255,255,255,.45);
+    max-width: 220px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .footer-links h4 {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+    margin-bottom: 14px;
+  }
+  .footer-links a {
+    display: block;
+    color: rgba(255,255,255,.6);
+    text-decoration: none;
+    font-size: .88rem;
+    margin-bottom: 8px;
+    transition: color .2s;
+  }
+  .footer-links a:hover { color: #fff; }
+  .footer-contact-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  .footer-contact-label:first-child { margin-top: 0; }
+  .footer-cta {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    padding: 32px 0;
+    border-top: 1px solid rgba(255,255,255,.07);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .footer-cta p {
+    font-size: .9rem;
+    color: rgba(255,255,255,.45);
+  }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 0 28px;
+    border-top: 1px solid rgba(255,255,255,.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-bottom p {
+    font-size: .8rem;
+    color: rgba(255,255,255,.3);
+  }
+
+  /* ── MOBILE NAV ── */
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    background: var(--azul);
+    border-top: 1px solid rgba(255,255,255,.07);
+  }
+  .mobile-nav a {
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+    font-size: .93rem;
+    font-weight: 500;
+    padding: 15px 24px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    transition: color .2s, background .2s;
+  }
+  .mobile-nav a:hover { background: rgba(255,255,255,.04); color: #fff; }
+  .mobile-nav.open { display: flex; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { display: none; }
+    .hamburger { display: flex; }
+    .problema-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero { padding: 72px 24px 64px; }
+    section { padding: 60px 24px; }
+    .footer-inner { flex-direction: column; gap: 32px; }
+    .footer-cta { flex-direction: column; text-align: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+<div class="header-inner">
+<a class="logo" href="#">Connect<span>Hub</span></a>
+<nav>
+<a href="#servicos">Serviços</a>
+<a href="#pacotes">Pacotes</a>
+<a href="#contacto">Contacto</a>
+</nav>
+<button aria-label="Menu" class="hamburger" id="hamburger">
+<span></span><span></span><span></span>
+</button>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+<a href="#servicos" onclick="closeMobileNav()">Serviços</a>
+<a href="#pacotes" onclick="closeMobileNav()">Pacotes</a>
+<a href="#contacto" onclick="closeMobileNav()">Contacto</a>
+</div>
+</header>
+<!-- HERO -->
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="hero-inner">
+<div class="hero-tag">Soluções digitais para Angola</div>
+<h1>Colocamos teu negócio online e trazemos clientes pelo <em>WhatsApp</em></h1>
+<p>Soluções simples e acessíveis para pequenos negócios em Angola</p>
+<div class="hero-divider"></div>
+</div>
+</section>
+<!-- PROBLEMA + SOLUÇÃO -->
+<section id="problema">
+<div class="container">
+<div class="problema-grid">
+<div class="problema-items">
+<div class="section-label">O problema</div>
+<div class="problema-item">
+<div class="problema-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+</div>
+<p>O teu negócio não aparece na internet?</p>
+</div>
+<div class="problema-item">
+<div class="problema-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path></svg>
+</div>
+<p>Não recebe clientes pelo WhatsApp?</p>
+</div>
+<div class="problema-item">
+<div class="problema-icon">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87"></path><path d="M16 3.13a4 4 0 010 7.75"></path></svg>
+</div>
+<p>Depende apenas de clientes presenciais?</p>
+</div>
+</div>
+<div class="problema-cta">
+<div class="section-label">A solução</div>
+<h3 class="section-title">Nós tratamos do digital. Tu tratas do teu negócio.</h3>
+<p>A Connect Hub cuida de toda a tua presença online, para que os clientes te encontrem e te contactem directamente pelo WhatsApp.</p>
+<ul class="solucao-list">
+<li>
+<div class="check"><svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            Criamos websites profissionais
+          </li>
+<li>
+<div class="check"><svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            Integramos com o WhatsApp
+          </li>
+<li>
+<div class="check"><svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            Organizamos as tuas redes sociais
+          </li>
+<li>
+<div class="check"><svg fill="none" height="12" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="12"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+            Ajudamos a atrair mais clientes
+          </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- SERVIÇOS -->
+<section id="servicos">
+<div class="container">
+<div class="section-label">O que fazemos</div>
+<h2 class="section-title">Serviços disponíveis</h2>
+<p class="section-sub">Escolhe o serviço que o teu negócio precisa ou fala connosco para um pacote personalizado.</p>
+<div class="cards-grid">
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/website.jpg');"><div class="card-body"><h3>Criação de Website</h3><p>Website profissional completo com informações do negócio, contacto e botão direto para WhatsApp.<br/><strong>12.000 – 15.000 Kz / entrega</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20cria%C3%A7%C3%A3o%20de%20website%20para%20o%20meu%20neg%C3%B3cio." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/criarpagina.jpg');"><div class="card-body"><h3>Página Facebook</h3><p>Criação e organização da página do teu negócio com imagem profissional e informações completas.<br/><strong>3.000 – 5.000 Kz / entrega</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20gostaria%20de%20criar%20ou%20melhorar%20a%20p%C3%A1gina%20do%20meu%20neg%C3%B3cio%20no%20Facebook." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/identidade.jpg');"><div class="card-body"><h3>Identidade Visual</h3><p>Definição visual completa do teu negócio (cores, estilo e apresentação profissional).<br/><strong>8.000 Kz / entrega</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20quero%20criar%20a%20identidade%20visual%20do%20meu%20neg%C3%B3cio." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/logo.png');"><div class="card-body"><h3>Logomarca</h3><p>Criação de logotipo profissional para representar o teu negócio de forma única.<br/><strong>5.000 – 10.000 Kz / entrega</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20gostaria%20de%20criar%20uma%20logomarca%20para%20o%20meu%20neg%C3%B3cio." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/posts.jpg');"><div class="card-body"><h3>Posts para Redes Sociais</h3><p>Criação de posts profissionais para Facebook e Instagram com foco em atrair clientes.<br/><strong>2.000 – 4.000 Kz cada</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20gostaria%20de%20criar%20posts%20para%20as%20minhas%20redes%20sociais." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/banner.png');"><div class="card-body"><h3>Banners</h3><p>Design de banners promocionais para divulgar o teu negócio online e offline.<br/><strong>3.000 Kz / entrega</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20preciso%20de%20banners%20para%20o%20meu%20neg%C3%B3cio." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/banner.png');"><div class="card-body"><h3>Flyer</h3><p>Design de flyers para divulgação do teu negócio em formato digital ou impresso.<br/><strong>3.000 Kz / entrega</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20preciso%20de%20flyers%20para%20o%20meu%20neg%C3%B3cio." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/redessociais.jpg');"><div class="card-body"><h3>Gestão de Redes Sociais</h3><p>Gestão completa das tuas redes sociais com publicações e acompanhamento contínuo.</p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20gest%C3%A3o%20de%20redes%20sociais." target="_blank">Quero este serviço</a></div></div></div>
+<div class="card">
+
+
+
+
+<div class="card-media" style="background-image: url('img/whatsapp.jpg');"><div class="card-body"><h3>Integração com WhatsApp</h3><p>Ligamos o teu negócio ao WhatsApp para receber mensagens diretas de clientes. <strong>Incluído nos pacotes.</strong></p><a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20quero%20integrar%20o%20meu%20neg%C3%B3cio%20com%20WhatsApp." target="_blank">Quero este serviço</a></div></div></div>
+</div>
+</div>
+</section>
+<!-- PACOTES -->
+<section id="pacotes">
+<div class="container">
+<div class="section-label">Investimento</div>
+<h2 class="section-title">Pacotes e preços</h2>
+<p class="section-sub">Solução completa ou só o que precisas. Sem mensalidades escondidas.</p>
+<div class="pacotes-grid">
+<!-- BÁSICO -->
+<div class="pacote-card">
+<div class="pacote-header" style="background-image: url('img/basico.jpg');">
+<div class="pacote-tag">Pacote</div>
+<div class="pacote-nome">Base — Presença Inicial</div>
+<div class="pacote-preco">20.000 Kz<span>pagamento único</span></div>
+</div>
+<div class="pacote-body">
+<p class="pacote-desc">Para negócios que querem dar o primeiro passo na internet.</p>
+<ul class="pacote-items">
+<li>Website profissional</li>
+<li>Integração com WhatsApp</li>
+<li>Página Facebook</li>
+</ul>
+<a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Pacote%20Base." target="_blank">Quero este pacote</a>
+</div>
+</div>
+<!-- CRESCIMENTO -->
+<div class="pacote-card destaque">
+<div class="pacote-header" style="background-image: url('img/crescimento.jpg');">
+<div class="pacote-tag">Mais escolhido</div>
+<div class="pacote-nome">Crescimento</div>
+<div class="pacote-preco">26.000 Kz<span>pagamento único</span></div>
+</div>
+<div class="pacote-body">
+<p class="pacote-desc">Para quem quer uma presença digital mais completa e activa.</p>
+<ul class="pacote-items">
+<li>Website profissional</li>
+<li>Integração com WhatsApp</li>
+<li>Página Facebook</li>
+<li>2 posts profissionais</li>
+</ul>
+<a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Pacote%20Crescimento." target="_blank">Quero este pacote</a>
+</div>
+</div>
+<!-- PREMIUM -->
+<div class="pacote-card">
+<div class="pacote-header" style="background-image: url('img/premium.jpg');">
+<div class="pacote-tag">Pacote</div>
+<div class="pacote-nome">Premium — Presença + Gestão</div>
+<div class="pacote-preco">Gestão mensal opcional<span>escolhe o plano ideal</span></div>
+</div>
+<div class="pacote-body">
+<p class="pacote-desc">Para crescimento contínuo com acompanhamento profissional.</p>
+<ul class="pacote-items">
+<li>Gestão de redes sociais</li>
+<li>Publicações mensais profissionais</li>
+<li>Acompanhamento contínuo</li>
+</ul>
+<div class="gestao-label">Planos mensais</div>
+<div class="gestao-item">
+<span>4 posts mensais — Gestão básica</span>
+<span class="gestao-preco">24.000 Kz/mês</span>
+</div>
+<div class="gestao-item">
+<span>6 posts mensais — Gestão + acompanhamento</span>
+<span class="gestao-preco">30.000 Kz/mês</span>
+</div>
+<div class="gestao-item last-of-type">
+<span>8 posts mensais — Gestão completa</span>
+<span class="gestao-preco">36.000 Kz/mês</span>
+</div>
+<p style="font-size:.78rem;color:var(--texto-sec);margin-bottom:20px;margin-top:8px;">Campanha patrocinada (Ads) à parte — 8.000 Kz por campanha</p>
+<a class="btn-card" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Pacote%20Premium." target="_blank">Quero este pacote</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PROVA -->
+<section id="prova">
+<div class="container">
+<div class="section-label">Trabalhos realizados</div>
+<h2 class="section-title">Projectos concluídos</h2>
+<p class="section-sub">Negócios locais que já marcam presença na internet com a Connect Hub.</p>
+<div class="prova-grid"><div class="projeto-card reveal" style="background-image: url('img/hero-sapicar.jpg');"><div class="projeto-body"><div class="prova-tag">Projecto</div><h4>Sapicar</h4><p>Website institucional desenvolvido para apresentação profissional e contacto directo.</p><a class="btn-card" href="https://basiliopedro.github.io/Clinica-sapicar/" target="_blank">Ver</a></div></div><div class="projeto-card reveal" style="background-image: url('img/energia.png');"><div class="projeto-body"><div class="prova-tag">Projecto</div><h4>Ecogrid</h4><p>Projecto apresentado com imagem forte, identidade clara e navegação directa para conversão.</p><a class="btn-card" href="https://basiliopedro.github.io/Ecogrid---site/" target="_blank">Ver</a></div></div></div>
+</div>
+</section>
+<!-- FOOTER / CONTACTO -->
+<footer id="contacto">
+<div class="footer-inner">
+<div class="footer-brand">
+<a class="logo" href="#">Connect<span>Hub</span></a>
+<p>Soluções digitais simples para pequenos negócios crescerem em Angola.</p>
+</div>
+<div class="footer-links">
+<h4>Serviços</h4>
+<a href="#servicos">Criação de Websites</a>
+<a href="#servicos">Integração WhatsApp</a>
+<a href="#servicos">Página Facebook</a>
+<a href="#servicos">Redes Sociais</a>
+<a href="#pacotes">Ver Pacotes</a>
+</div>
+<div class="footer-links">
+<h4>Contacto</h4>
+<p class="footer-contact-label" style="color:rgba(255,255,255,.4);font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Atendimento (WhatsApp)</p>
+<a href="https://wa.me/244938528084" target="_blank">+244 938 528 084</a>
+<p class="footer-contact-label" style="color:rgba(255,255,255,.4);font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:14px;margin-bottom:6px">Apoio ao cliente</p>
+<a href="tel:+244954309826">+244 954 309 826</a>
+<a href="tel:+244958422102">+244 958 422 102</a>
+<a href="tel:+244975745184">+244 975 745 184</a>
+</div>
+</div>
+<div class="footer-cta">
+<p>Pronto para dar o próximo passo? Fala connosco agora.</p>
+<a class="btn-primary" href="https://wa.me/244938528084?text=Ol%C3%A1%2C%20visitei%20o%20site%20da%20Connect%20Hub%20e%20quero%20mais%20informa%C3%A7%C3%B5es." target="_blank">
+<svg fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+      Falar no WhatsApp
+    </a>
+</div>
+<div class="footer-bottom">
+<p>© 2025 Connect Hub. Todos os direitos reservados.</p>
+<p>Angola</p>
+</div>
+</footer>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card, .pacote-card, .problema-item, .projeto-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .4s ease, transform .4s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
